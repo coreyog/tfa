@@ -13,20 +13,23 @@ Use the `go` tool:
 package main
 
 import (
-  "crypto/rand"
-  "fmt"
-  "time"
+	"crypto/rand"
+	"encoding/base32"
+	"fmt"
+	"time"
 
-  "github.com/coreyog/tfa"
+	"github.com/coreyog/tfa"
 )
 
 func main() {
-  secret := make([]byte, 32)
-  rand.Read(secret)
-  // Here's the value you store away
-  b32secret := base32.StdEncoding.EncodeToString(secret)
+	secret := make([]byte, 32)
+	rand.Read(secret)
+	// Here's the value you store away
+	b32secret := base32.StdEncoding.EncodeToString(secret)
+	fmt.Printf("Secret to store in DB: %s\n", b32secret)
 
-  // Generate the 6 digit code for this secret
-  code := tfa.GenerateCode(secret, time.Now().Unix())
+	// Generate the 6 digit code for this secret
+	code := tfa.GenerateCode(secret, time.Now().Unix())
+	fmt.Printf("Code you check against user input: %s\n", code)
 }
 ```
