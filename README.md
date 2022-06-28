@@ -28,7 +28,9 @@ func main() {
   b32secret := base32.StdEncoding.EncodeToString(secret)
   fmt.Printf("Secret to store in DB: %s\n", b32secret)
 
-  // Generate the 6 digit code for this secret
+  // Generate the 6 digit code for this secret, when a user signs in you'll
+  // ask them for this code and compare their input against what you generate.
+  // If they match, success! Otherwise, prompt again.
   code := tfa.GenerateCode(secret, time.Now().Unix())
   fmt.Printf("Code you check against user input: %s\n", code)
 }
